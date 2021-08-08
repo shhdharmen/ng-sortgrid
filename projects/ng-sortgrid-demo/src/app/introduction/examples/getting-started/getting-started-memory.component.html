@@ -1,11 +1,28 @@
-<h5 style="margin-bottom: 20px">3. Drag the items around - hold CMD or Control and click on an item to select multiple
-  files</h5>
+<h5 style="margin-bottom: 20px">
+  3. Drag the items around - hold CMD or Control and click on an item to select multiple files
+</h5>
 <div class="example-container">
-  <ngsg-card *ngFor="let item of items"
-             ngSortgridItem
-             ngSortGridGroup="getting-started"
-             [ngSortGridItems]="items"
-             [item]="item"
-             class="example-box">
+  <ngsg-card
+    *ngFor="let item of items"
+    ngSortgridItem
+    ngSortGridGroup="getting-started"
+    [ngSortGridItems]="items"
+    [item]="item"
+    class="example-box"
+  >
+  </ngsg-card>
+</div>
+<h5 style="margin: 20px 0">4. You can also have pre-selected items though <code>isSelected</code> flag.</h5>
+<div class="example-container">
+  <ngsg-card
+    *ngFor="let item of items2"
+    ngSortgridItem
+    ngSortGridGroup="pre-selected"
+    [ngSortGridItems]="items2"
+    [item]="item.value"
+    class="example-box"
+    [isSelected]="item.isSelected"
+    (itemSelected)="itemSelected($event, item.value)"
+  >
   </ngsg-card>
 </div>

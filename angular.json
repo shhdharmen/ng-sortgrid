@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "ng-sortgrid"
+  "defaultProject": "ng-sortgrid",
+  "cli": {
+    "analytics": false
+  }
 }
