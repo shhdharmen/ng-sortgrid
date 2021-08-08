@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {fromEvent, merge, NEVER, Observable, Subject} from 'rxjs';
-import {filter, mapTo, switchMap, withLatestFrom} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { fromEvent, merge, NEVER, Observable, Subject } from 'rxjs';
+import { filter, mapTo, switchMap, withLatestFrom } from 'rxjs/operators';
 
-import {NgsgClassService} from '../helpers/class/ngsg-class.service';
-import {NgsgElementsHelper} from '../helpers/element/ngsg-elements.helper';
-import {NgsgStoreService} from '../store/ngsg-store.service';
+import { NgsgClassService } from '../helpers/class/ngsg-class.service';
+import { NgsgElementsHelper } from '../helpers/element/ngsg-elements.helper';
+import { NgsgStoreService } from '../store/ngsg-store.service';
 
 enum ChangeAction {
   ADD,
-  REMOVE
+  REMOVE,
 }
 
 interface SelectionChange {
@@ -18,7 +18,7 @@ interface SelectionChange {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NgsgSelectionService {
   private COMMAND_KEY = 'Meta';
@@ -38,16 +38,16 @@ export class NgsgSelectionService {
   }
 
   private resetSelectedItems(group: string): void {
-    this.ngsgStore.getSelectedItems(group).forEach(item => this.classService.removeSelectedClass(item.node));
+    this.ngsgStore.getSelectedItems(group).forEach((item) => this.classService.removeSelectedClass(item.node));
     this.ngsgStore.resetSelectedItems(group);
   }
 
-  private handleSelectionChange(selectionChange: SelectionChange): void {
+  public handleSelectionChange(selectionChange: SelectionChange): void {
     if (selectionChange.action === ChangeAction.ADD) {
       this.classService.addSelectedClass(selectionChange.item);
       this.ngsgStore.addSelectedItem(selectionChange.key, {
         node: selectionChange.item,
-        originalIndex: NgsgElementsHelper.findIndex(selectionChange.item)
+        originalIndex: NgsgElementsHelper.findIndex(selectionChange.item),
       });
     }
     if (selectionChange.action === ChangeAction.REMOVE) {
@@ -74,7 +74,7 @@ export class NgsgSelectionService {
     }
     this.ngsgStore.addSelectedItem(group, {
       node: dragedElement,
-      originalIndex: NgsgElementsHelper.findIndex(dragedElement)
+      originalIndex: NgsgElementsHelper.findIndex(dragedElement),
     });
   }
 
@@ -82,7 +82,11 @@ export class NgsgSelectionService {
     this.selectionChange$.next({
       key,
       item,
-      action: selected ? ChangeAction.ADD : ChangeAction.REMOVE
+      action: selected ? ChangeAction.ADD : ChangeAction.REMOVE,
     });
+  }
+
+  public addSelectedItem(key: string, item: Element): void {
+    this.handleSelectionChange({ key, item, action: ChangeAction.ADD });
   }
 }
