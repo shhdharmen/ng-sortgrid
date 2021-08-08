@@ -9,7 +9,6 @@ import {
   OnDestroy,
   OnInit,
   Output,
-  Renderer2,
   SimpleChanges,
 } from '@angular/core';
 import { fromEvent, Subject } from 'rxjs';
@@ -50,8 +49,7 @@ export class NgsgItemDirective implements OnInit, OnChanges, AfterViewInit, OnDe
     private reflectService: NgsgReflectService,
     private ngsgStore: NgsgStoreService,
     private ngsgEventService: NgsgEventsService,
-    private scrollHelperService: ScrollHelperService,
-    private renderer: Renderer2
+    private scrollHelperService: ScrollHelperService
   ) {}
 
   ngOnInit(): void {
